@@ -1,6 +1,6 @@
 %define	name	dcraw
 %define	version	8.61
-%define	release	%mkrel 1
+%define	release	%mkrel 2
 
 %define withgimp1 0
 %define withgimp2 1
@@ -37,7 +37,7 @@ Source110:	secrets.html.bz2
 Patch0:		crwinfo-help.patch
 # gcc 4.x does not allow cast on left hand side of assignment
 Patch1:		dcraw-7.42-sony-clear-gcc-4.patch
-License:	Distributable
+License:	Freely redistributable without restriction
 %if %withgimp1
 BuildRequires:	gimp-devel
 %endif 
@@ -48,7 +48,6 @@ BuildRequires:	libjpeg-devel, liblcms-devel
 Buildroot:	%_tmppath/%name-%version-%release-root
 
 %description
-
 Reads and processes raw images from more than 245 digital cameras.
 
 Raw images are the data directly read from the CCD of the camera,
@@ -211,18 +210,18 @@ install -m 755 lcfile %{buildroot}%{_bindir}
 
 # Documentation
 install -m 644 dcraw.1 %{buildroot}%{_mandir}/man1
-install -m 644 dcraw.html %{buildroot}%{_docdir}/%{name}-%{version}
-install -m 644 secrets.html %{buildroot}%{_docdir}/%{name}-%{version}
-install -m 644 .badpixels %{buildroot}%{_docdir}/%{name}-%{version}/badpixels
-install -m 644 CRWInfo*/README %{buildroot}%{_docdir}/%{name}-%{version}/README.crwinfo
-install -m 644 CRWInfo*/spec %{buildroot}%{_docdir}/%{name}-%{version}/spec.crwinfo
+install -m 644 dcraw.html %{buildroot}%{_docdir}/%{name}
+install -m 644 secrets.html %{buildroot}%{_docdir}/%{name}
+install -m 644 .badpixels %{buildroot}%{_docdir}/%{name}/badpixels
+install -m 644 CRWInfo*/README %{buildroot}%{_docdir}/%{name}/README.crwinfo
+install -m 644 CRWInfo*/spec %{buildroot}%{_docdir}/%{name}/spec.crwinfo
 
 %clean
 rm -rf %buildroot
 
 %files
 %defattr(-,root,root)
-%docdir %{_docdir}/%{name}-%{version}
+%docdir %{_docdir}/%{name}
 %_bindir/*
 %_mandir/man1/*
 %_docdir/*
