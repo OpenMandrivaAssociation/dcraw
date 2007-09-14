@@ -44,7 +44,7 @@ BuildRequires:	gimp-devel
 %if %withgimp2
 BuildRequires:	libgimp-devel >= 2.0
 %endif
-BuildRequires:	libjpeg-devel, liblcms-devel
+BuildRequires:	libjpeg-devel, lcms-devel
 Buildroot:	%_tmppath/%name-%version-%release-root
 
 %description
