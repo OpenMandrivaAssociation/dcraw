@@ -179,7 +179,7 @@ rm -rf %buildroot
 # Directories
 install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_mandir}/man1
-install -d %{buildroot}%{_docdir}/%{name}-%{version}
+install -d %{buildroot}%{_docdir}/%{name}
 %if %withgimp1
 install -d %{buildroot}%{_libdir}/gimp/1.2/plug-ins
 %endif
@@ -212,7 +212,7 @@ install -m 755 lcfile %{buildroot}%{_bindir}
 install -m 644 dcraw.1 %{buildroot}%{_mandir}/man1
 install -m 644 dcraw.html %{buildroot}%{_docdir}/%{name}
 install -m 644 secrets.html %{buildroot}%{_docdir}/%{name}
-install -m 644 -T .badpixels %{buildroot}%{_docdir}/%{name}/badpixels
+install -m 644 .badpixels %{buildroot}%{_docdir}/%{name}/badpixels
 install -m 644 CRWInfo*/README %{buildroot}%{_docdir}/%{name}/README.crwinfo
 install -m 644 CRWInfo*/spec %{buildroot}%{_docdir}/%{name}/spec.crwinfo
 
