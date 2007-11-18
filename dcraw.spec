@@ -1,16 +1,15 @@
 %define	name	dcraw
-%define	version	8.61
-%define	release	%mkrel 2
+%define	version	8.80
+%define	release	%mkrel 1
 
 %define withgimp1 0
 %define withgimp2 1
-#define gcc	gcc-3.3.4
 %define gcc	gcc
 
 Name:		%name
 Version:	%version
 Release:	%release
-Summary:	Reads the raw image formats of 226 digital cameras
+Summary:	Reads the raw image formats of 279 digital cameras
 Group:		Graphics
 URL:		http://www.cybercom.net/~dcoffin/dcraw/
 Source0:	http://www.cybercom.net/~dcoffin/dcraw/dcraw.c.bz2
@@ -48,7 +47,7 @@ BuildRequires:	libjpeg-devel, lcms-devel
 Buildroot:	%_tmppath/%name-%version-%release-root
 
 %description
-Reads and processes raw images from more than 245 digital cameras.
+Reads and processes raw images from more than 279 digital cameras.
 
 Raw images are the data directly read from the CCD of the camera,
 without in-camera processing, without lossy JPEG compression, and in
@@ -237,5 +236,4 @@ rm -rf %buildroot
 %defattr(-,root,root)
 %{_libdir}/gimp/2.0/plug-ins/*
 %endif
-
 
