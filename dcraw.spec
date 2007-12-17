@@ -44,7 +44,6 @@ BuildRequires:	gimp-devel
 BuildRequires:	libgimp-devel >= 2.0
 %endif
 BuildRequires:	libjpeg-devel, lcms-devel
-Buildroot:	%_tmppath/%name-%version-%release-root
 
 %description
 Reads and processes raw images from more than 279 digital cameras.
