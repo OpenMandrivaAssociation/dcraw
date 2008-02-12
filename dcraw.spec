@@ -74,7 +74,6 @@ Group: 		Graphics
 Requires: 	gimp dcraw
  
 %description gimp
-
 GIMP 1.2.x plug-in to load all raw image files of digital cameras
 supported by the dcraw package. This allows direct editing of the
 original images of the camera, without any conversion or compression
@@ -89,7 +88,6 @@ Requires: 	gimp dcraw
 Conflicts:	rawphoto ufraw
  
 %description gimp2.0
-
 GIMP 2.2.x plug-in to load all raw image files of digital cameras
 supported by the dcraw package. This allows direct editing of the
 original images of the camera, without any conversion or compression
