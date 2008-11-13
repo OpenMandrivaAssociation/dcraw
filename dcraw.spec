@@ -1,10 +1,8 @@
 %define	name	dcraw
-%define	version	8.80
-%define	release	%mkrel 2
+%define	version	8.88
+%define	release	%mkrel 1
 
-%define withgimp1 0
 %define withgimp2 1
-%define gcc	gcc
 
 Name:		%name
 Version:	%version
@@ -12,34 +10,35 @@ Release:	%release
 Summary:	Reads the raw image formats of 279 digital cameras
 Group:		Graphics
 URL:		http://www.cybercom.net/~dcoffin/dcraw/
-Source0:	http://www.cybercom.net/~dcoffin/dcraw/dcraw.c.bz2
-Source2:	http://www.cybercom.net/~dcoffin/dcraw/rawphoto.c.bz2
-Source3:	http://www.cybercom.net/~dcoffin/dcraw/.badpixels.bz2
-Source4:	http://www.cybercom.net/~dcoffin/dcraw/dcraw.1.bz2
-Source5:	dcwrap.bz2
-Source6:	http://www.cybercom.net/~dcoffin/dcraw/parse.c.bz2
-Source240:	http://www.cybercom.net/~dcoffin/dcraw/clean_crw.c.bz2
-Source7:	fixdates.c.bz2
-Source8:	http://www.cybercom.net/~dcoffin/dcraw/decompress.c.bz2
-Source9:	pgm.c.bz2
-Source210:	http://www.cybercom.net/~dcoffin/dcraw/sony_clear.c.bz2
+# do not use source code, but the archive tarball
+# it contains all additional localizations
+Source0:	http://www.cybercom.net/~dcoffin/dcraw/archive/%name-%version.tar.gz
+Source2:	http://www.cybercom.net/~dcoffin/dcraw/rawphoto.c
+Source3:	http://www.cybercom.net/~dcoffin/dcraw/.badpixels
+Source4:	http://www.cybercom.net/~dcoffin/dcraw/dcraw.1.html
+Source5:	dcwrap
+Source6:	http://www.cybercom.net/~dcoffin/dcraw/parse.c
+Source240:	http://www.cybercom.net/~dcoffin/dcraw/clean_crw.c
+Source7:	fixdates.c
+Source8:	http://www.cybercom.net/~dcoffin/dcraw/decompress.c
+Source9:	pgm.c
+Source210:	http://www.cybercom.net/~dcoffin/dcraw/sony_clear.c
 Source10:	http://neuemuenze.heim1.tu-clausthal.de/~sven/crwinfo/CRWInfo-0.2.tar.bz2
-Source11:	http://www.cybercom.net/~dcoffin/dcraw/fujiturn.c.bz2
-Source250:	http://www.cybercom.net/~dcoffin/dcraw/fuji_green.c.bz2
-Source220:	renum.bz2
-Source230:	lcfile.bz2
+Source11:	http://www.cybercom.net/~dcoffin/dcraw/fujiturn.c
+Source250:	http://www.cybercom.net/~dcoffin/dcraw/fuji_green.c
+Source220:	renum
+Source230:	lcfile
 # This is a copy of the dcraw home page with camera list, usage info, FAQ,
 # ...
 Source100:	http://www.cybercom.net/~dcoffin/dcraw/dcraw.html.bz2
-Source110:	secrets.html.bz2
+Source110:	secrets.html
+# program to read Nikon Dust Off images (NDF files)
+Source260:	read_ndf.c
 # Remove multiple-line string constant from crwinfo.c, gcc cannot handle it
 Patch0:		crwinfo-help.patch
 # gcc 4.x does not allow cast on left hand side of assignment
 Patch1:		dcraw-7.42-sony-clear-gcc-4.patch
 License:	Freely redistributable without restriction
-%if %withgimp1
-BuildRequires:	gimp-devel
-%endif 
 %if %withgimp2
 BuildRequires:	libgimp-devel >= 2.0
 %endif
@@ -67,28 +66,15 @@ model, mount your camera as a USB mass-storage device, use GPhoto2
 downloading the files.
 
 
-%if %withgimp1
-%package gimp
-Summary: 	A GIMP plug-in to load raw image files of digital cameras
-Group: 		Graphics
-Requires: 	gimp dcraw
- 
-%description gimp
-GIMP 1.2.x plug-in to load all raw image files of digital cameras
-supported by the dcraw package. This allows direct editing of the
-original images of the camera, without any conversion or compression
-loss.
-
-%endif
 %if %withgimp2
 %package gimp2.0
-Summary: 	A GIMP plug-in to load raw files of digicams (GIMP 2.2.x)
+Summary: 	A GIMP plug-in to load raw files of digicams (GIMP 2.x)
 Group: 		Graphics
 Requires: 	gimp dcraw
 Conflicts:	rawphoto ufraw
  
 %description gimp2.0
-GIMP 2.2.x plug-in to load all raw image files of digital cameras
+GIMP 2.x plug-in to load all raw image files of digital cameras
 supported by the dcraw package. This allows direct editing of the
 original images of the camera, without any conversion or compression
 loss.
@@ -97,63 +83,55 @@ loss.
 %prep
 rm -rf $RPM_BUILD_DIR/%{name}-%{version}
 mkdir $RPM_BUILD_DIR/%{name}-%{version}
-%if %withgimp1
-mkdir $RPM_BUILD_DIR/%{name}-%{version}/gimp
-%endif
 %if %withgimp2
 mkdir $RPM_BUILD_DIR/%{name}-%{version}/gimp2.0
 %endif
 cd $RPM_BUILD_DIR/%{name}-%{version}
 
-bzcat %{SOURCE0} > dcraw.c
-%if %withgimp1
-bzcat %{SOURCE2} > gimp/rawphoto.c
-%endif
 %if %withgimp2
-bzcat %{SOURCE2} > gimp2.0/rawphoto.c
+install -m644 %{SOURCE2} gimp2.0/rawphoto.c
 %endif
-bzcat %{SOURCE3} > .badpixels
-bzcat %{SOURCE4} > dcraw.1
-bzcat %{SOURCE5} > dcwrap
-bzcat %{SOURCE6} > parse.c
-bzcat %{SOURCE240} > clean_crw.c
-bzcat %{SOURCE7} > fixdates.c
-bzcat %{SOURCE8} > decompress.c
-bzcat %{SOURCE9} > pgm.c
-bzcat %{SOURCE210} > sony_clear.c
-bzcat %{SOURCE11} > fujiturn.c
-bzcat %{SOURCE250} > fuji_green.c
-bzcat %{SOURCE220} > renum
-bzcat %{SOURCE230} > lcfile
-bzcat %{SOURCE100} > dcraw.html
-bzcat %{SOURCE110} > secrets.html
-#setup -q -T -D -a 1 -n %{name}-%{version}
+install -m644 %{SOURCE3} .badpixels
+install -m644 %{SOURCE4} dcraw.1
+install -m644 %{SOURCE5} dcwrap
+install -m644 %{SOURCE6} parse.c
+install -m644 %{SOURCE240} clean_crw.c
+install -m644 %{SOURCE7} fixdates.c
+install -m644 %{SOURCE8} decompress.c
+install -m644 %{SOURCE9} pgm.c
+install -m644 %{SOURCE210} sony_clear.c
+install -m644 %{SOURCE11} fujiturn.c
+install -m644 %{SOURCE250} fuji_green.c
+install -m644 %{SOURCE220} renum
+install -m644 %{SOURCE230} lcfile
+install -m644 %{SOURCE100} dcraw.html
+install -m644 %{SOURCE110} secrets.html
+install -m644 %{SOURCE260} read_ndf.c
 #cd ljpeg_decode
 #ln -s ../dcraw.c .
 #cd ..
-%setup -q -T -D -a 10 -n %{name}-%{version}
+%setup -q -T -D -a0 -a10 -n %{name}-%{version}
 cd CRWInfo*
-%patch0 -p0
+%patch0 -p0 -b .help
 cd ..
-%patch1 -p0
+%patch1 -p0 -b .gcc4
 
 %build
 cd $RPM_BUILD_DIR/%{name}-%{version}
 
-%{gcc} ${CFLAGS:-%optflags} -lm -ljpeg -llcms -o dcraw dcraw.c
+cd dcraw
+cc ${CFLAGS:-%optflags} -lm -ljpeg -llcms -o dcraw dcraw.c
+cd ..
 
 # Build simple C programs
+# fixed overlinking issues by appending -Wl,--as-needed -lm
 for file in *.c; do
-   if [ "$file" != "dcraw.c" ]; then
-      %{gcc} ${CFLAGS:-%optflags} -lm -o ${file%.c} $file
-   fi
+  if [ "$file" != "dcraw.c" ]; then
+	cc ${CFLAGS:-%optflags} -o ${file%.c} $file -Wl,--as-needed -lm
+  fi
 done
 
 # Build GIMP plug-in
-%if %withgimp1
-gimptool-1.2 --build gimp/rawphoto.c
-mv rawphoto gimp
-%endif
 %if %withgimp2
 gimptool-2.0 --build gimp2.0/rawphoto.c
 mv rawphoto gimp2.0
@@ -176,17 +154,13 @@ rm -rf %buildroot
 # Directories
 install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_mandir}/man1
-install -d %{buildroot}%{_docdir}/%{name}
-%if %withgimp1
-install -d %{buildroot}%{_libdir}/gimp/1.2/plug-ins
-%endif
 %if %withgimp2
 install -d %{buildroot}%{_libdir}/gimp/2.0/plug-ins
 %endif
 
 # Program files
 #install -m 755 ljpeg_decode/dcraw %{buildroot}%{_bindir}
-install -m 755 dcraw %{buildroot}%{_bindir}
+install -m 755 dcraw/dcraw %{buildroot}%{_bindir}
 install -m 755 decompress %{buildroot}%{_bindir}
 install -m 755 fixdates %{buildroot}%{_bindir}
 install -m 755 fujiturn %{buildroot}%{_bindir}
@@ -194,9 +168,6 @@ install -m 755 fuji_green %{buildroot}%{_bindir}
 install -m 755 parse %{buildroot}%{_bindir}
 install -m 755 clean_crw %{buildroot}%{_bindir}
 install -m 755 pgm %{buildroot}%{_bindir}
-%if %withgimp1
-install -m 755 gimp/rawphoto %{buildroot}%{_libdir}/gimp/1.2/plug-ins
-%endif
 %if %withgimp2
 install -m 755 gimp2.0/rawphoto %{buildroot}%{_libdir}/gimp/2.0/plug-ins
 %endif
@@ -206,28 +177,39 @@ install -m 755 renum %{buildroot}%{_bindir}
 install -m 755 lcfile %{buildroot}%{_bindir}
 
 # Documentation
-install -m 644 dcraw.1 %{buildroot}%{_mandir}/man1
-install -m 644 dcraw.html %{buildroot}%{_docdir}/%{name}
-install -m 644 secrets.html %{buildroot}%{_docdir}/%{name}
-install -m 644 .badpixels %{buildroot}%{_docdir}/%{name}/badpixels
-install -m 644 CRWInfo*/README %{buildroot}%{_docdir}/%{name}/README.crwinfo
-install -m 644 CRWInfo*/spec %{buildroot}%{_docdir}/%{name}/spec.crwinfo
+install -m 644 .badpixels badpixels
+install -m 644 CRWInfo*/README README.crwinfo
+install -m 644 CRWInfo*/spec spec.crwinfo
+
+# Localisations installation taken from dcraw install script
+cd dcraw
+for langchar in \
+  fr.latin1 it.latin1 de.latin1 pt.latin1 es.latin1 sv.latin1 \
+  ca.latin1 cs.latin2 hu.latin2 pl.latin2 eo.latin3 ru.koi8-r \
+  zh_TW.big5 zh_CN.gb2312
+do
+  lang=`echo $langchar | cut -d. -f1`
+  char=`echo $langchar | cut -d. -f2-`
+  mkdir -p -m 755 %{buildroot}/%{_datadir}/man/$lang/man1
+  iconv -f utf-8 -t $char dcraw_$lang.1 > %{buildroot}/%{_datadir}/man/$lang/man1/dcraw.1
+#mkdir -p -m 755 %{buildroot}/%{_datadir}/man/$lang.UTF-8/man1
+#cp dcraw_$lang.1 %{buildroot}/%{_datadir}/man/$lang.UTF-8/man1/dcraw.1
+  mkdir -p -m 755 %{buildroot}/%{_datadir}/locale/$lang/LC_MESSAGES
+  msgfmt -o %{buildroot}/%{_datadir}/locale/$lang/LC_MESSAGES/dcraw.mo dcraw_$lang.po
+done
+  mkdir -p -m 755 %{buildroot}/%{_datadir}/locale/nl/LC_MESSAGES
+  msgfmt -o %{buildroot}/%{_datadir}/locale/nl/LC_MESSAGES/dcraw.mo dcraw_nl.po
+cd -
+
+%find_lang %{name} --with-man
 
 %clean
 rm -rf %buildroot
 
-%files
+%files -f %{name}.lang
 %defattr(-,root,root)
-%docdir %{_docdir}/%{name}
+%doc dcraw.html secrets.html badpixels README.crwinfo spec.crwinfo
 %_bindir/*
-%_mandir/man1/*
-%_docdir/*
-
-%if %withgimp1
-%files gimp
-%defattr(-,root,root)
-%{_libdir}/gimp/1.2/plug-ins/*
-%endif
 
 %if %withgimp2
 %files gimp2.0
