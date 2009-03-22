@@ -1,5 +1,5 @@
 %define	name	dcraw
-%define	version	8.88
+%define	version	8.93
 %define	release	%mkrel 1
 
 %define withgimp2 1
@@ -120,7 +120,8 @@ cd ..
 cd $RPM_BUILD_DIR/%{name}-%{version}
 
 cd dcraw
-cc ${CFLAGS:-%optflags} -lm -ljpeg -llcms -o dcraw dcraw.c
+cc ${CFLAGS:-%optflags} -DLOCALEDIR='"%{_datadir}/locale/"' \
+   -lm -ljpeg -llcms -o dcraw dcraw.c
 cd ..
 
 # Build simple C programs
@@ -181,21 +182,29 @@ install -m 644 .badpixels badpixels
 install -m 644 CRWInfo*/README README.crwinfo
 install -m 644 CRWInfo*/spec spec.crwinfo
 
+cp dcraw/dcraw.1 %{buildroot}%{_datadir}/man/man1
+
 # Localisations installation taken from dcraw install script
 cd dcraw
 for langchar in \
-  fr.latin1 it.latin1 de.latin1 pt.latin1 es.latin1 sv.latin1 \
+  fr.latin1 it.latin1 de.latin1 pt.latin1 es.latin1 nl.latin1 sv.latin1 \
   ca.latin1 cs.latin2 hu.latin2 pl.latin2 eo.latin3 ru.koi8-r \
   zh_TW.big5 zh_CN.gb2312
 do
   lang=`echo $langchar | cut -d. -f1`
   char=`echo $langchar | cut -d. -f2-`
   mkdir -p -m 755 %{buildroot}/%{_datadir}/man/$lang/man1
-  iconv -f utf-8 -t $char dcraw_$lang.1 > %{buildroot}/%{_datadir}/man/$lang/man1/dcraw.1
-#mkdir -p -m 755 %{buildroot}/%{_datadir}/man/$lang.UTF-8/man1
-#cp dcraw_$lang.1 %{buildroot}/%{_datadir}/man/$lang.UTF-8/man1/dcraw.1
-  mkdir -p -m 755 %{buildroot}/%{_datadir}/locale/$lang/LC_MESSAGES
-  msgfmt -o %{buildroot}/%{_datadir}/locale/$lang/LC_MESSAGES/dcraw.mo dcraw_$lang.po
+  if [ -f dcraw_$lang.1 ]; then
+    iconv -f utf-8 -t $char dcraw_$lang.1 > \
+      %{buildroot}/%{_datadir}/man/$lang/man1/dcraw.1
+    #mkdir -p -m 755 %{buildroot}/%{_datadir}/man/$lang.UTF-8/man1
+    #cp dcraw_$lang.1 %{buildroot}/%{_datadir}/man/$lang.UTF-8/man1/dcraw.1
+  fi
+  if [ -f dcraw_$lang.po ]; then
+    mkdir -p -m 755 %{buildroot}/%{_datadir}/locale/$lang/LC_MESSAGES
+    msgfmt -o %{buildroot}/%{_datadir}/locale/$lang/LC_MESSAGES/dcraw.mo \
+      dcraw_$lang.po
+  fi
 done
   mkdir -p -m 755 %{buildroot}/%{_datadir}/locale/nl/LC_MESSAGES
   msgfmt -o %{buildroot}/%{_datadir}/locale/nl/LC_MESSAGES/dcraw.mo dcraw_nl.po
@@ -209,7 +218,8 @@ rm -rf %buildroot
 %files -f %{name}.lang
 %defattr(-,root,root)
 %doc dcraw.html secrets.html badpixels README.crwinfo spec.crwinfo
-%_bindir/*
+%{_bindir}/*
+%{_mandir}/man1/dcraw.1*
 
 %if %withgimp2
 %files gimp2.0
