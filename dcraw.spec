@@ -1,6 +1,6 @@
 %define	name	dcraw
-%define	version	8.93
-%define	release	%mkrel 3
+%define	version	8.95
+%define	release	%mkrel 1
 
 %define withgimp2 1
 
