@@ -1,6 +1,6 @@
 %define	name	dcraw
-%define	version	8.96
-%define	release	%mkrel 2
+%define	version	9.04
+%define	release	%mkrel 1
 
 %define withgimp2 1
 
@@ -118,17 +118,18 @@ cd ..
 
 %build
 cd $RPM_BUILD_DIR/%{name}-%{version}
+%setup_compile_flags
 
 cd dcraw
-cc ${CFLAGS:-%optflags} -DLOCALEDIR='"%{_datadir}/locale/"' \
-   -lm -ljpeg -llcms -o dcraw dcraw.c
+cc ${CFLAGS:-%optflags} %{ldflags} -DLOCALEDIR='"%{_datadir}/locale/"' \
+   dcraw.c -o dcraw -lm -ljpeg -llcms
 cd ..
 
 # Build simple C programs
 # fixed overlinking issues by appending -Wl,--as-needed -lm
 for file in *.c; do
   if [ "$file" != "dcraw.c" ]; then
-	cc ${CFLAGS:-%optflags} -o ${file%.c} $file -Wl,--as-needed -lm
+	cc ${CFLAGS:-%optflags} -o ${file%.c} $file %{ldflags} -lm
   fi
 done
 
