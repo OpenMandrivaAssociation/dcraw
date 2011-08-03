@@ -1,5 +1,5 @@
 %define	name	dcraw
-%define	version	9.08
+%define	version	9.10
 %define	release	%mkrel 1
 
 %define withgimp2 1
@@ -43,6 +43,7 @@ License:	Freely redistributable without restriction
 BuildRequires:	libgimp-devel >= 2.0
 %endif
 BuildRequires:	libjpeg-devel, lcms-devel
+BuildRequires:	jasper-devel
 Buildroot:	%_tmppath/%name-%version-%release-root
 
 %description
@@ -104,7 +105,7 @@ install -m644 %{SOURCE11} fujiturn.c
 install -m644 %{SOURCE250} fuji_green.c
 install -m644 %{SOURCE220} renum
 install -m644 %{SOURCE230} lcfile
-install -m644 %{SOURCE100} dcraw.html
+bzcat %{SOURCE100} > dcraw.html
 install -m644 %{SOURCE110} secrets.html
 install -m644 %{SOURCE260} read_ndf.c
 #cd ljpeg_decode
@@ -122,7 +123,7 @@ cd $RPM_BUILD_DIR/%{name}-%{version}
 
 cd dcraw
 cc ${CFLAGS:-%optflags} %{ldflags} -DLOCALEDIR='"%{_datadir}/locale/"' \
-   dcraw.c -o dcraw -lm -ljpeg -llcms
+   dcraw.c -o dcraw -lm -ljpeg -llcms -ljasper
 cd ..
 
 # Build simple C programs
