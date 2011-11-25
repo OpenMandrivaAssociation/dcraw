@@ -1,5 +1,5 @@
 %define	name	dcraw
-%define	version	9.10
+%define	version	9.11
 %define	release	%mkrel 1
 
 %define withgimp2 1
@@ -82,12 +82,12 @@ loss.
 %endif
 
 %prep
-rm -rf $RPM_BUILD_DIR/%{name}-%{version}
-mkdir $RPM_BUILD_DIR/%{name}-%{version}
+rm -rf %_builddir/%{name}-%{version}
+mkdir %_builddir/%{name}-%{version}
 %if %withgimp2
-mkdir $RPM_BUILD_DIR/%{name}-%{version}/gimp2.0
+mkdir %_builddir/%{name}-%{version}/gimp2.0
 %endif
-cd $RPM_BUILD_DIR/%{name}-%{version}
+cd %_builddir/%{name}-%{version}
 
 %if %withgimp2
 install -m644 %{SOURCE2} gimp2.0/rawphoto.c
@@ -118,7 +118,7 @@ cd ..
 %patch1 -p0 -b .gcc4
 
 %build
-cd $RPM_BUILD_DIR/%{name}-%{version}
+cd %_builddir/%{name}-%{version}
 %setup_compile_flags
 
 cd dcraw
@@ -150,7 +150,7 @@ cd ..
 #cd ..
 
 %install
-cd $RPM_BUILD_DIR/%{name}-%{version}
+cd %_builddir/%{name}-%{version}
 
 rm -rf %buildroot
 
