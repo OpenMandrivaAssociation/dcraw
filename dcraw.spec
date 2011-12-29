@@ -1,5 +1,5 @@
 %define	name	dcraw
-%define	version	9.11
+%define	version	9.12
 %define	release	%mkrel 1
 
 %define withgimp2 1
@@ -40,7 +40,7 @@ Patch0:		crwinfo-help.patch
 Patch1:		dcraw-7.42-sony-clear-gcc-4.patch
 License:	Freely redistributable without restriction
 %if %withgimp2
-BuildRequires:	libgimp-devel >= 2.0
+BuildRequires:	gimp-devel >= 2.0
 %endif
 BuildRequires:	libjpeg-devel, lcms-devel
 BuildRequires:	jasper-devel
