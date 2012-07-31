@@ -1,12 +1,8 @@
-%define	name	dcraw
-%define	version	9.12
-%define	release	%mkrel 1
-
 %define withgimp2 1
 
-Name:		%name
-Version:	%version
-Release:	%release
+Name:		dcraw
+Version:	9.16
+Release:	1
 Summary:	Reads the raw image formats of 279 digital cameras
 Group:		Graphics
 URL:		http://www.cybercom.net/~dcoffin/dcraw/
@@ -44,7 +40,6 @@ BuildRequires:	gimp-devel >= 2.0
 %endif
 BuildRequires:	libjpeg-devel, lcms-devel
 BuildRequires:	jasper-devel
-Buildroot:	%_tmppath/%name-%version-%release-root
 
 %description
 Reads and processes raw images from more than 279 digital cameras.
@@ -69,9 +64,9 @@ downloading the files.
 
 %if %withgimp2
 %package gimp2.0
-Summary: 	A GIMP plug-in to load raw files of digicams (GIMP 2.x)
-Group: 		Graphics
-Requires: 	gimp dcraw
+Summary:	A GIMP plug-in to load raw files of digicams (GIMP 2.x)
+Group:		Graphics
+Requires:	gimp dcraw
 Conflicts:	rawphoto ufraw
  
 %description gimp2.0
@@ -82,14 +77,9 @@ loss.
 %endif
 
 %prep
-rm -rf %_builddir/%{name}-%{version}
-mkdir %_builddir/%{name}-%{version}
+%setup -qc -a10
 %if %withgimp2
-mkdir %_builddir/%{name}-%{version}/gimp2.0
-%endif
-cd %_builddir/%{name}-%{version}
-
-%if %withgimp2
+mkdir gimp2.0
 install -m644 %{SOURCE2} gimp2.0/rawphoto.c
 %endif
 install -m644 %{SOURCE3} .badpixels
@@ -111,14 +101,12 @@ install -m644 %{SOURCE260} read_ndf.c
 #cd ljpeg_decode
 #ln -s ../dcraw.c .
 #cd ..
-%setup -q -T -D -a0 -a10 -n %{name}-%{version}
 cd CRWInfo*
 %patch0 -p0 -b .help
 cd ..
 %patch1 -p0 -b .gcc4
 
 %build
-cd %_builddir/%{name}-%{version}
 %setup_compile_flags
 
 cd dcraw
@@ -150,10 +138,6 @@ cd ..
 #cd ..
 
 %install
-cd %_builddir/%{name}-%{version}
-
-rm -rf %buildroot
-
 # Directories
 install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_mandir}/man1
@@ -184,48 +168,33 @@ install -m 644 .badpixels badpixels
 install -m 644 CRWInfo*/README README.crwinfo
 install -m 644 CRWInfo*/spec spec.crwinfo
 
-cp dcraw/dcraw.1 %{buildroot}%{_datadir}/man/man1
+install -D -m 644 dcraw/dcraw.1 %{buildroot}%{_datadir}/man/man1
 
-# Localisations installation taken from dcraw install script
-cd dcraw
-for langchar in \
-  fr.latin1 it.latin1 de.latin1 pt.latin1 es.latin1 nl.latin1 sv.latin1 \
-  ca.latin1 cs.latin2 hu.latin2 pl.latin2 eo.latin3 ru.koi8-r \
-  zh_TW.big5 zh_CN.gb2312
+pushd dcraw
+for lang in fr it de pt es nl sv ca cs hu pl eo ru zh_TW zh_CN da
 do
-  lang=`echo $langchar | cut -d. -f1`
-  char=`echo $langchar | cut -d. -f2-`
-  mkdir -p -m 755 %{buildroot}/%{_datadir}/man/$lang/man1
-  if [ -f dcraw_$lang.1 ]; then
-    iconv -f utf-8 -t $char dcraw_$lang.1 > \
-      %{buildroot}/%{_datadir}/man/$lang/man1/dcraw.1
-    #mkdir -p -m 755 %{buildroot}/%{_datadir}/man/$lang.UTF-8/man1
-    #cp dcraw_$lang.1 %{buildroot}/%{_datadir}/man/$lang.UTF-8/man1/dcraw.1
-  fi
   if [ -f dcraw_$lang.po ]; then
     mkdir -p -m 755 %{buildroot}/%{_datadir}/locale/$lang/LC_MESSAGES
     msgfmt -o %{buildroot}/%{_datadir}/locale/$lang/LC_MESSAGES/dcraw.mo \
       dcraw_$lang.po
+    echo "%lang($lang) %{_datadir}/locale/$lang/LC_MESSAGES/dcraw.mo" >> ../%{name}.lang
+  fi
+  if [ -f dcraw_$lang.1 ]; then
+    install -m 644 -D dcraw_$lang.1 %{buildroot}/%{_datadir}/man/$lang/man1/dcraw_$lang.1
+    echo "%lang($lang) %{_datadir}/man/$lang/man1/dcraw_$lang.1*" >> ../%{name}.lang
   fi
 done
-  mkdir -p -m 755 %{buildroot}/%{_datadir}/locale/nl/LC_MESSAGES
-  msgfmt -o %{buildroot}/%{_datadir}/locale/nl/LC_MESSAGES/dcraw.mo dcraw_nl.po
-cd -
+popd
 
-%find_lang %{name} --with-man
-
-%clean
-rm -rf %buildroot
+#find_lang %{name} --with-man
 
 %files -f %{name}.lang
-%defattr(-,root,root)
 %doc dcraw.html secrets.html badpixels README.crwinfo spec.crwinfo
 %{_bindir}/*
 %{_mandir}/man1/dcraw.1*
 
 %if %withgimp2
 %files gimp2.0
-%defattr(-,root,root)
 %{_libdir}/gimp/2.0/plug-ins/*
 %endif
 
