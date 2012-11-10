@@ -1,0 +1,12 @@
+--- sony_clear.c.orig	2005-07-17 23:31:29.000000000 +0200
++++ sony_clear.c	2005-07-17 23:41:40.000000000 +0200
+@@ -31,7 +31,8 @@
+   unsigned *ip, key0, key1=0, key2=0, i;
+   uchar *cp;
+ 
+-  ip = (void *) cp = buffer+200896;
++  cp = buffer + 200896;
++  ip = (unsigned *)cp;
+   key0 = ntohl(ip[*cp]);
+   sony_decrypt (buffer+164600, 9074, key0);
+   for (i=4; i--; ) {

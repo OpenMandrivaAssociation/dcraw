@@ -1,0 +1,20 @@
+sources:
+  ".badpixels:"	bb7527ada4673b7c93503392b57be9ca3d3750a3
+  "clean_crw.c:"	8f1f370e619a70f8bed07cc06af68c6b6339ca87
+  "CRWInfo-0.2.tar.bz2:"	9f7f5df12eb79acad4c0004318e0b98b173fe15e
+  "dcraw.1.html:"	bd4e2db57b1ac13de6ac2390ae7a492e1c39f362
+  "dcraw-9.16.tar.gz:"	fb73ca3ccd703bd522a759e0366814f0a3411902
+  "dcraw.html.bz2:"	eab4c8c1c45c0b1b1c4b8a3ea4e42f309142a5f8
+  "dcwrap:"	fe7f75f15f7e0dd2cdde5f96d2a0185213974066
+  "decompress.c:"	6fa5b1799caae058b9923d5b76c8eafab54e523c
+  "fixdates.c:"	1209c9638268afb609872bb04d981651dbcb1648
+  "fuji_green.c:"	1e8ee7d1583e69fd68bd5c17c52e21278cc576be
+  "fujiturn.c:"	78c3add1f83ac5bb7d2b123e34be4d8b01c4d213
+  "lcfile:"	a675a09628cb52388aab340450fa4323a74ce2f0
+  "parse.c:"	6a8b77066376adb1062cdc5102504ac5b6aae5cd
+  "pgm.c:"	cf4fd20a1245a0535d3898e3e1e8892c82d3bd9d
+  "rawphoto.c:"	d920009b21e4746e60f8fcb2369b78dbd87dcd9c
+  "read_ndf.c:"	fdde5f29635ce8f386349e106e8e5c186a0a6183
+  "renum:"	963fe30af13a4974f29c1511e61b0fd6a98bb0e9
+  "secrets.html:"	7087138152992abc6829aac8f5e1f4e7fe530ea4
+  "sony_clear.c:"	3864c9f709863e4c1589a6a860b64c73895c81c0
