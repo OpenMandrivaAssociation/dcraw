@@ -1,0 +1,30 @@
+#!/usr/bin/python
+# Lowercase a list of filenames and change spaces to underscores.
+# Directories are descended recursively.
+# Dave Coffin  12/14/99
+
+from os import *
+from os.path import *
+from string import *
+import exceptions
+import errno
+import sys
+
+def dodir(list):
+  for name in list:
+    if isdir(name) and not islink(name):
+      orig = getcwd()
+      chdir(name)
+      dodir(listdir("."))
+      chdir(orig)
+    new = replace(lower(name)," ","_")
+    if new == name: continue
+    try:
+      rename(name,new)
+    except OSError, (errno,message):
+      print "Error renaming %s to %s: %s" % (name,new,message)
+
+list = sys.argv[1:]
+if list==[]: list=["."]
+
+dodir(list)

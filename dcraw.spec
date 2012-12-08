@@ -198,3 +198,197 @@ popd
 %{_libdir}/gimp/2.0/plug-ins/*
 %endif
 
+
+
+%changelog
+* Tue Jul 31 2012 Dmitry Mikhirev <dmikhirev@mandriva.org> 9.16-1
++ Revision: 811503
+- update to 9.16
+- dont package non-utf8 man pages
+
+* Thu Dec 29 2011 Götz Waschk <waschk@mandriva.org> 9.12-1
++ Revision: 748188
+- new version
+- update build deps
+
+* Fri Nov 25 2011 Götz Waschk <waschk@mandriva.org> 9.11-1
++ Revision: 733345
+- new version
+- build fix
+
+* Wed Aug 03 2011 Götz Waschk <waschk@mandriva.org> 9.10-1
++ Revision: 692969
+- new version
+- build with jasper support
+- uncompress html doc
+
+* Thu Jun 16 2011 Götz Waschk <waschk@mandriva.org> 9.08-1
++ Revision: 685484
+- new version
+
+* Tue May 03 2011 Oden Eriksson <oeriksson@mandriva.com> 9.06-2
++ Revision: 663760
+- mass rebuild
+
+* Mon Mar 07 2011 Götz Waschk <waschk@mandriva.org> 9.06-1
++ Revision: 642409
+- update to new version 9.06
+
+* Tue Dec 21 2010 Götz Waschk <waschk@mandriva.org> 9.05-1mdv2011.0
++ Revision: 623628
+- update to new version 9.05
+
+* Mon Aug 09 2010 Funda Wang <fwang@mandriva.org> 9.04-1mdv2011.0
++ Revision: 568053
+- new version 9.04
+
+* Sun Jan 10 2010 Oden Eriksson <oeriksson@mandriva.com> 8.96-2mdv2010.1
++ Revision: 488744
+- rebuilt against libjpeg v8
+
+* Sun Aug 23 2009 Frederik Himpe <fhimpe@mandriva.org> 8.96-1mdv2010.0
++ Revision: 419909
+- update to new version 8.96
+- update to new version 8.95
+
+* Sat Aug 15 2009 Oden Eriksson <oeriksson@mandriva.com> 8.93-3mdv2010.0
++ Revision: 416649
+- rebuilt against libjpeg v7
+
+* Sun Aug 09 2009 Oden Eriksson <oeriksson@mandriva.com> 8.93-2mdv2010.0
++ Revision: 413343
+- rebuild
+
+* Sun Mar 22 2009 Herton Ronaldo Krzesinski <herton@mandriva.com.br> 8.93-1mdv2009.1
++ Revision: 360202
+- Updated to version 8.93
+- Make sure we enable internationalization defining LOCALEDIR in dcraw
+  build.
+- Provide main dcraw man page.
+
+* Thu Nov 13 2008 Frederic Crozat <fcrozat@mandriva.com> 8.88-1mdv2009.1
++ Revision: 302685
+- Release 8.88
+- a lot of specfile cleanup and improvement from Florian Hubold
+
+* Mon Jun 16 2008 Thierry Vignaud <tv@mandriva.org> 8.80-2mdv2009.0
++ Revision: 220577
+- rebuild
+- fix spacing at top of description
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Olivier Blin <blino@mandriva.org>
+    - restore BuildRoot
+
+* Sun Nov 18 2007 Giuseppe Ghibò <ghibo@mandriva.com> 8.80-1mdv2008.1
++ Revision: 109824
+- Release 8.80.
+
+* Sat Sep 15 2007 Adam Williamson <awilliamson@mandriva.org> 8.61-2mdv2008.0
++ Revision: 85822
+- oops, correct fix for doc install failure
+- fix installation of .badpixels
+- correct buildrequires
+- rebuild for 2008
+- new doc policy (don't use a versioned directory)
+- Fedora license policy
+
+
+* Sun Feb 25 2007 Emmanuel Andry <eandry@mandriva.org> 8.61-1mdv2007.0
++ Revision: 125628
+- New version 8.61
+- uncompress patches
+- change number of supported cameras to 254
+- Import dcraw
+
+* Fri Aug 25 2006 Till Kamppeter <till@mandriva.com> 8.31-2mdv2007.0
+- Shortened the package description.
+
+* Wed Aug 23 2006 Till Kamppeter <till@mandriva.com> 8.31-1mdv2007.0
+- Updated to version 8.31 (Many new cameras supported).
+- Also updated: rawphoto.c, dcraw.1, parse.c, dcraw.html
+
+* Sat May 13 2006 Till Kamppeter <till@mandriva.com> 8.15-2mdk
+- Rebuild.
+
+* Sat May 13 2006 Till Kamppeter <till@mandriva.com> 8.15-1mdk
+- Updated to version 8.15 (New cameras supported, including Canon EOS 30D).
+- Also updated: parse.c dcraw.html, dcraw.1
+
+* Sat May 13 2006 Till Kamppeter <till@mandriva.com> 8.03-3mdk
+- Rebuild to make Cooker consistent again.
+
+* Sat May 13 2006 Stefan van der Eijk <stefan@eijk.nu> 8.03-2mdk
+- rebuild for sparc
+
+* Fri Feb 03 2006 Till Kamppeter <till@mandriva.com> 8.03-1mdk
+- Updated to version 7.49 (New cameras supported, including Sony DSC R1,
+  Pentax *istDL, Olympus E-500, Canon EOS 5D; Color management based on
+  LittleCMS).
+- Also updated: rawphoto.c, parse.c dcraw.html, dcraw.1
+- Re-introduced GIMP plug-in, it builds again.
+- Introduced %%mkrel.
+
+* Sat Sep 03 2005 Till Kamppeter <till@mandriva.com> 7.49-2mdk
+- Removed unneeded "Requires: ".
+- Removed GIMP plug-in. Does not build any more and there are several
+  better ones around (ex.: ufraw).
+
+* Mon Aug 15 2005 Till Kamppeter <till@mandriva.com> 7.49-1mdk
+- Updated to version 7.49 (New cameras supported, including Minolta
+  Alpha/Dynax/Maxxum 5D and Olympus C770UZ).
+- Updated also: rawphoto, parse.
+
+* Mon Jul 18 2005 Till Kamppeter <till@mandriva.com> 7.42-1mdk
+- Updated to version 7.42 (New cameras supported, including Nikon D50).
+- Updated also: parse.
+- Removed restriction on using gcc 3.x, it works with gcc 4.x now.
+- Patch1 to make sony_clear working with gcc 4.x.
+
+* Sun May 15 2005 Till Kamppeter <till@mandriva.com> 7.21-1mdk
+- Updated to version 7.21 (New cameras supported, including Canon EOS 350D).
+- Updated also: .badpixels, parse, fujiturn.
+- Still some compatibility issues with GCC 4.x, using 3.x for now.
+
+* Fri Apr 22 2005 Till Kamppeter <till@mandriva.com> 7.14-1mdk
+- Updated to version 7.14 (Many new cameras, support for the Adobe
+  Digital Negative format, DNG).
+- Updated also: rawphoto, parse.
+
+* Mon Mar 07 2005 Till Kamppeter <till@mandrakesoft.com> 6.35-2mdk
+- Added "Conflicts: ufraw" to the GIMP 2 plugin package.
+
+* Mon Mar 07 2005 Till Kamppeter <till@mandrakesoft.com> 6.35-1mdk
+- Updated to version 6.35.
+- Updated also: parse.
+- Updated to "Requires: jpeg-progs".
+- Updated to "Requires: gimp" (it is every day changing).
+
+* Fri Feb 11 2005 Till Kamppeter <till@mandrakesoft.com> 6.34-1mdk
+- Updated to version 6.34.
+- Updated also: dcwrap, parse, rawphoto.
+
+* Sat Jan 15 2005 Couriousous <couriousous@mandrake.org> 6.18-2mdk
+- Fix gimp requires
+
+* Fri Dec 17 2004 Till Kamppeter <till@mandrakesoft.com> 6.18-1mdk
+- Updated to version 6.18 (New cameras supported, especially all recent
+  DSLRs).
+
+* Wed Sep 08 2004 Christiaan Welvaart <cjw@daneel.dyndns.org> 0.20040813-2mdk
+- add BuildRequires: libjpeg-devel
+
+* Sat Aug 14 2004 Till Kamppeter <till@mandrakesoft.com> 0.20040813-1mdk
+- Updated to the state of 13/08/2004 (More camera models supported).
+- Removed support for GIMP 1.x as dcraw is in main and GIMP 1.x in contrib.
+
+* Wed May 12 2004 Till Kamppeter <till@mandrakesoft.com> 0.20040511-1mdk
+- Updated to the state of 11/05/2004 (Many new camera models supported).
+
+* Thu Mar 25 2004 Thierry Vignaud <tvignaud@mandrakesoft.com> 0.20040317-2mdk
+- rebuild for gimp2
+
+* Wed Mar 17 2004 Till Kamppeter <till@mandrakesoft.com> 0.20040317-1mdk
+- Updated to the state of 15/12/2003 (Many new camera models supported,
+  GIMP 2.0 support, some new tools added).
+
