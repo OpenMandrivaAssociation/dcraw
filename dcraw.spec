@@ -2,7 +2,7 @@
 
 Name:		dcraw
 Version:	9.16
-Release:	1
+Release:	2
 Summary:	Reads the raw image formats of 279 digital cameras
 Group:		Graphics
 URL:		http://www.cybercom.net/~dcoffin/dcraw/
@@ -38,7 +38,8 @@ License:	Freely redistributable without restriction
 %if %withgimp2
 BuildRequires:	gimp-devel >= 2.0
 %endif
-BuildRequires:	libjpeg-devel, lcms-devel
+BuildRequires:	jpeg-devel
+BuildRequires:	lcms-devel
 BuildRequires:	jasper-devel
 
 %description
