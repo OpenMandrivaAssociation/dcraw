@@ -2,8 +2,8 @@
 
 Summary:	Reads the raw image formats of 279 digital cameras
 Name:		dcraw
-Version:	9.16
-Release:	6
+Version:	9.21
+Release:	1
 Group:		Graphics
 License:	Freely redistributable without restriction
 Url:		http://www.cybercom.net/~dcoffin/dcraw/
@@ -41,7 +41,7 @@ BuildRequires:	pkgconfig(gimp-2.0)
 %endif
 BuildRequires:	jpeg-devel
 BuildRequires:	pkgconfig(jasper)
-BuildRequires:	pkgconfig(lcms)
+BuildRequires:	pkgconfig(lcms2)
 
 %description
 Reads and processes raw images from more than 279 digital cameras.
@@ -112,7 +112,7 @@ cd ..
 
 cd dcraw
 cc ${CFLAGS:-%optflags} %{ldflags} -DLOCALEDIR='"%{_datadir}/locale/"' \
-   dcraw.c -o dcraw -lm -ljpeg -llcms -ljasper
+   dcraw.c -o dcraw -lm -ljasper -ljpeg -llcms2
 cd ..
 
 # Build simple C programs
