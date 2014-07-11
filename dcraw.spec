@@ -2,14 +2,14 @@
 
 Summary:	Reads the raw image formats of 279 digital cameras
 Name:		dcraw
-Version:	9.21
-Release:	2
+Version:	9.22
+Release:	1
 Group:		Graphics
 License:	Freely redistributable without restriction
 Url:		http://www.cybercom.net/~dcoffin/dcraw/
 # do not use source code, but the archive tarball
 # it contains all additional localizations
-Source0:	http://www.cybercom.net/~dcoffin/dcraw/archive/%name-%version.tar.gz
+Source0:	http://www.cybercom.net/~dcoffin/dcraw/archive/%{name}-%{version}.tar.gz
 Source2:	http://www.cybercom.net/~dcoffin/dcraw/rawphoto.c
 Source3:	http://www.cybercom.net/~dcoffin/dcraw/.badpixels
 Source4:	http://www.cybercom.net/~dcoffin/dcraw/dcraw.1.html
@@ -36,7 +36,7 @@ Patch0:		crwinfo-help.patch
 # gcc 4.x does not allow cast on left hand side of assignment
 Patch1:		dcraw-7.42-sony-clear-gcc-4.patch
 
-%if %withgimp2
+%if %{withgimp2}
 BuildRequires:	pkgconfig(gimp-2.0)
 %endif
 BuildRequires:	jpeg-devel
@@ -63,23 +63,35 @@ model, mount your camera as a USB mass-storage device, use GPhoto2
 ("gtkam", "digikam", "flphoto", "gphoto2"), or a flash card reader for
 downloading the files.
 
-%if %withgimp2
+%files -f %{name}.lang
+%doc dcraw.html secrets.html badpixels README.crwinfo spec.crwinfo
+%{_bindir}/*
+%{_mandir}/man1/dcraw.1*
+
+#----------------------------------------------------------------------------
+
+%if %{withgimp2}
 %package gimp2.0
 Summary:	A GIMP plug-in to load raw files of digicams (GIMP 2.x)
 Group:		Graphics
 Requires:	gimp
 Requires:	%{name}
- 
+
 %description gimp2.0
 GIMP 2.x plug-in to load all raw image files of digital cameras
 supported by the dcraw package. This allows direct editing of the
 original images of the camera, without any conversion or compression
 loss.
+
+%files gimp2.0
+%{_libdir}/gimp/2.0/plug-ins/*
 %endif
+
+#----------------------------------------------------------------------------
 
 %prep
 %setup -qc -a10
-%if %withgimp2
+%if %{withgimp2}
 mkdir gimp2.0
 install -m644 %{SOURCE2} gimp2.0/rawphoto.c
 %endif
@@ -111,20 +123,20 @@ cd ..
 %setup_compile_flags
 
 cd dcraw
-cc ${CFLAGS:-%optflags} %{ldflags} -DLOCALEDIR='"%{_datadir}/locale/"' \
-   dcraw.c -o dcraw -lm -ljasper -ljpeg -llcms2
+cc ${CFLAGS:-%{optflags}} %{ldflags} -DLOCALEDIR='"%{_datadir}/locale/"' \
+   dcraw.c -o dcraw -lm -ljpeg -llcms2 -ljasper
 cd ..
 
 # Build simple C programs
 # fixed overlinking issues by appending -Wl,--as-needed -lm
 for file in *.c; do
   if [ "$file" != "dcraw.c" ]; then
-	cc ${CFLAGS:-%optflags} -o ${file%.c} $file %{ldflags} -lm
+	cc ${CFLAGS:-%{optflags}} -o ${file%.c} $file %{ldflags} -lm
   fi
 done
 
 # Build GIMP plug-in
-%if %withgimp2
+%if %{withgimp2}
 gimptool-2.0 --build gimp2.0/rawphoto.c
 mv rawphoto gimp2.0
 %endif
@@ -142,7 +154,7 @@ cd ..
 # Directories
 install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_mandir}/man1
-%if %withgimp2
+%if %{withgimp2}
 install -d %{buildroot}%{_libdir}/gimp/2.0/plug-ins
 %endif
 
@@ -156,7 +168,7 @@ install -m 755 fuji_green %{buildroot}%{_bindir}
 install -m 755 parse %{buildroot}%{_bindir}
 install -m 755 clean_crw %{buildroot}%{_bindir}
 install -m 755 pgm %{buildroot}%{_bindir}
-%if %withgimp2
+%if %{withgimp2}
 install -m 755 gimp2.0/rawphoto %{buildroot}%{_libdir}/gimp/2.0/plug-ins
 %endif
 install -m 755 CRWInfo*/crwinfo %{buildroot}%{_bindir}
@@ -186,16 +198,4 @@ do
   fi
 done
 popd
-
-#find_lang %{name} --with-man
-
-%files -f %{name}.lang
-%doc dcraw.html secrets.html badpixels README.crwinfo spec.crwinfo
-%{_bindir}/*
-%{_mandir}/man1/dcraw.1*
-
-%if %withgimp2
-%files gimp2.0
-%{_libdir}/gimp/2.0/plug-ins/*
-%endif
 
