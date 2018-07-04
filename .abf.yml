@@ -1,6 +1,8 @@
 removed_sources:
   dcraw-9.21.tar.gz: 4221662ba603a5db43d9ab37c0f51503b60b8863
+  dcraw-9.27.0.tar.gz: d9fd2ee5596a02d3dff792dd377a32b768752a4d
 sources:
   CRWInfo-0.2.tar.bz2: 9f7f5df12eb79acad4c0004318e0b98b173fe15e
   dcraw.html.bz2: eab4c8c1c45c0b1b1c4b8a3ea4e42f309142a5f8
-  dcraw-9.27.0.tar.gz: d9fd2ee5596a02d3dff792dd377a32b768752a4d
+  dcraw-9.28.0.tar.gz: 321662c99c0201f4886b61817cdedfc850cc7b3b
+  
