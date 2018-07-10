@@ -3,7 +3,7 @@
 Summary:	Reads the raw image formats of 279 digital cameras
 Name:		dcraw
 Version:	9.28.0
-Release:	1
+Release:	2
 Group:		Graphics
 License:	Freely redistributable without restriction
 Url:		http://www.cybercom.net/~dcoffin/dcraw/
