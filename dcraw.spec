@@ -6,7 +6,7 @@ Version:	9.28.0
 Release:	5
 Group:		Graphics
 License:	Freely redistributable without restriction
-Url:		http://www.cybercom.net/~dcoffin/dcraw/
+Url:		https://www.cybercom.net/~dcoffin/dcraw/
 # do not use source code, but the archive tarball
 # it contains all additional localizations
 Source0:	http://www.cybercom.net/~dcoffin/dcraw/archive/%{name}-%{version}.tar.gz
