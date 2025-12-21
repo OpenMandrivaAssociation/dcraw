@@ -37,6 +37,7 @@ Patch0:		crwinfo-help.patch
 Patch1:		dcraw-7.42-sony-clear-gcc-4.patch
 
 %if %{withgimp2}
+BuildRequires:	make
 BuildRequires:	pkgconfig(gimp-2.0)
 %endif
 BuildRequires:	jpeg-devel
