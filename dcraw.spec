@@ -1,3 +1,5 @@
+%global optflags %{optflags} -Wno-error -Wno-implicit-function-declaration
+
 %define withgimp2 0
 
 Summary:	Reads the raw image formats of 279 digital cameras
