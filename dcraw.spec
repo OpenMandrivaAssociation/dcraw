@@ -116,9 +116,9 @@ install -m644 %{SOURCE260} read_ndf.c
 #ln -s ../dcraw.c .
 #cd ..
 cd CRWInfo*
-%patch0 -p0 -b .help
+%patch 0 -p0 -b .help
 cd ..
-%patch1 -p0 -b .gcc4
+%patch 1 -p0 -b .gcc4
 
 %build
 %setup_compile_flags
