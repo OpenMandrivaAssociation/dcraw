@@ -1,9 +1,9 @@
-%define withgimp2 1
+%define withgimp2 0
 
 Summary:	Reads the raw image formats of 279 digital cameras
 Name:		dcraw
 Version:	9.28.0
-Release:	5
+Release:	6
 Group:		Graphics
 License:	Freely redistributable without restriction
 Url:		https://www.cybercom.net/~dcoffin/dcraw/
@@ -36,8 +36,8 @@ Patch0:		crwinfo-help.patch
 # gcc 4.x does not allow cast on left hand side of assignment
 Patch1:		dcraw-7.42-sony-clear-gcc-4.patch
 
-%if %{withgimp2}
 BuildRequires:	make
+%if %{withgimp2}
 BuildRequires:	pkgconfig(gimp-2.0)
 %endif
 BuildRequires:	jpeg-devel
