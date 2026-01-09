@@ -1030,7 +1030,7 @@ void parse_phase_one (int base)
   }
 }
 
-char *memmem (char *haystack, size_t haystacklen,
+/*char *memmem (char *haystack, size_t haystacklen,
               char *needle, size_t needlelen)
 {
   char *c;
@@ -1038,7 +1038,7 @@ char *memmem (char *haystack, size_t haystacklen,
     if (!memcmp (c, needle, needlelen))
       return c;
   return NULL;
-}
+}*/
 
 /*
    Identify which camera created this file, and set global variables

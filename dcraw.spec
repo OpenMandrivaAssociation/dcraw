@@ -1,33 +1,34 @@
-%define withgimp2 1
+%define withgimp2 0
 
 Summary:	Reads the raw image formats of 279 digital cameras
 Name:		dcraw
 Version:	9.28.0
-Release:	5
+Release:	6
 Group:		Graphics
 License:	Freely redistributable without restriction
-Url:		https://www.cybercom.net/~dcoffin/dcraw/
+Url:		https://dechifro.org/dcraw/
+# Also https://github.com/ncruces/dcraw
 # do not use source code, but the archive tarball
 # it contains all additional localizations
-Source0:	http://www.cybercom.net/~dcoffin/dcraw/archive/%{name}-%{version}.tar.gz
-Source2:	http://www.cybercom.net/~dcoffin/dcraw/rawphoto.c
-Source3:	http://www.cybercom.net/~dcoffin/dcraw/.badpixels
-Source4:	http://www.cybercom.net/~dcoffin/dcraw/dcraw.1.html
+Source0:	https://dechifro.org/dcraw/archive/dcraw-%{version}.tar.gz
+Source2:	https://dechifro.org/dcraw/rawphoto.c
+Source3:	https://dechifro.org/dcraw/.badpixels
+Source4:	https://dechifro.org/dcraw/dcraw.1.html
 Source5:	dcwrap
-Source6:	http://www.cybercom.net/~dcoffin/dcraw/parse.c
-Source240:	http://www.cybercom.net/~dcoffin/dcraw/clean_crw.c
+Source6:	https://dechifro.org/dcraw/parse.c
+Source240:	https://dechifro.org/dcraw/clean_crw.c
 Source7:	fixdates.c
-Source8:	http://www.cybercom.net/~dcoffin/dcraw/decompress.c
+Source8:	https://dechifro.org/dcraw/decompress.c
 Source9:	pgm.c
-Source210:	http://www.cybercom.net/~dcoffin/dcraw/sony_clear.c
+Source210:	https://dechifro.org/dcraw/sony_clear.c
 Source10:	http://neuemuenze.heim1.tu-clausthal.de/~sven/crwinfo/CRWInfo-0.2.tar.bz2
-Source11:	http://www.cybercom.net/~dcoffin/dcraw/fujiturn.c
-Source250:	http://www.cybercom.net/~dcoffin/dcraw/fuji_green.c
+Source11:	https://dechifro.org/dcraw/fujiturn.c
+Source250:	https://dechifro.org/dcraw/fuji_green.c
 Source220:	renum
 Source230:	lcfile
 # This is a copy of the dcraw home page with camera list, usage info, FAQ,
 # ...
-Source100:	http://www.cybercom.net/~dcoffin/dcraw/dcraw.html.bz2
+Source100:	https://dechifro.org/dcraw/dcraw.html.bz2
 Source110:	secrets.html
 # program to read Nikon Dust Off images (NDF files)
 Source260:	read_ndf.c
@@ -116,9 +117,9 @@ install -m644 %{SOURCE260} read_ndf.c
 #ln -s ../dcraw.c .
 #cd ..
 cd CRWInfo*
-%patch0 -p0 -b .help
+%patch 0 -p0 -b .help
 cd ..
-%patch1 -p0 -b .gcc4
+%patch 1 -p0 -b .gcc4
 
 %build
 %setup_compile_flags
@@ -138,7 +139,7 @@ done
 
 # Build GIMP plug-in
 %if %{withgimp2}
-gimptool-2.0 --build gimp2.0/rawphoto.c
+gimptool-3.0 --build gimp2.0/rawphoto.c
 mv rawphoto gimp2.0
 %endif
 

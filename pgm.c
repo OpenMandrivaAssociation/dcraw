@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
   int width, height, shift, x, y, i;
   unsigned short row[7000];
