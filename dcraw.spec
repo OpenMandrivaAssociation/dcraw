@@ -38,6 +38,7 @@ Patch0:		crwinfo-help.patch
 Patch1:		dcraw-7.42-sony-clear-gcc-4.patch
 
 BuildRequires:	make
+BuildRequires:	gettext
 BuildRequires:	jpeg-devel
 BuildRequires:	pkgconfig(jasper)
 BuildRequires:	pkgconfig(lcms2)
