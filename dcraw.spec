@@ -37,13 +37,13 @@ Patch0:		crwinfo-help.patch
 # gcc 4.x does not allow cast on left hand side of assignment
 Patch1:		dcraw-7.42-sony-clear-gcc-4.patch
 
-%if %{withgimp2}
 BuildRequires:	make
-BuildRequires:	pkgconfig(gimp-2.0)
-%endif
 BuildRequires:	jpeg-devel
 BuildRequires:	pkgconfig(jasper)
 BuildRequires:	pkgconfig(lcms2)
+%if %{withgimp2}
+BuildRequires:	pkgconfig(gimp-2.0)
+%endif
 
 %description
 Reads and processes raw images from more than 279 digital cameras.
